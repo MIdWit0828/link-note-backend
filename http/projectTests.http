@@ -1,0 +1,7 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### 프로젝트 조회
+GET http://localhost:8001/api/v1/pjts
+Access-Token: Bearer eyJkYXRlIjoxNzI1OTUzNjgxMDMwLCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlcklkIjoidXNlcjAxIiwibWVtYmVyUm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyNTk1NzI4MX0.u_a2FJ8ypmJ84JvPfu4niumeH0rjxpRCf4ZitpuiIZDB8X29z-B7Xg0EmiwgItu2KfLpAMes9fqTwsTbsA8y6w
