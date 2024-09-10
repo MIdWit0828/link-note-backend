@@ -7,3 +7,12 @@ Content-Type: application/json
   "memberPassword": "pass01",
   "memberName": "유저테스트 1"
 }
+
+### 로그인 테스트
+POST http://localhost:8001/api/v1/members/login
+content-Type: application/json
+
+{
+  "memberId" : "user01",
+  "memberPassword": "pass01"
+}
