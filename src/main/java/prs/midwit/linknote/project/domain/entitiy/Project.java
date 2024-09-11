@@ -3,11 +3,13 @@ package prs.midwit.linknote.project.domain.entitiy;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.parameters.P;
+import prs.midwit.linknote.project.dto.req.PjtModifyRequest;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +18,7 @@ import java.time.LocalDateTime;
 @Table(name = "tbl_project")
 @Getter
 @NoArgsConstructor
+@SQLDelete(sql = "UPDATE tbl_project SET is_deleted = 1, pjt_delete_dt = CURRENT_TIMESTAMP WHERE pjt_code = ?")
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +32,11 @@ public class Project {
     private LocalDateTime pjtDeleteDt;
     private long memberCode;
 
+
+    @PreRemove
+    public void onPreRemove() {
+        this.pjtDeleteDt = LocalDateTime.now();
+    }
     public Project(String pjtName, long memberCode) {
         this.pjtName = pjtName;
         this.memberCode = memberCode;
@@ -39,5 +47,9 @@ public class Project {
                 pjtName,
                 memberCode
         );
+    }
+
+    public void modity(PjtModifyRequest request) {
+        this.pjtName = request.getPjtName();
     }
 }

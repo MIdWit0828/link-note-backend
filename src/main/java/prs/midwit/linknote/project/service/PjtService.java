@@ -1,19 +1,29 @@
 package prs.midwit.linknote.project.service;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import prs.midwit.linknote.auth.common.exception.BadRequestException;
 import prs.midwit.linknote.auth.common.exception.NoContentsException;
+import prs.midwit.linknote.auth.common.exception.NotFoundException;
 import prs.midwit.linknote.auth.common.exception.type.ExceptionCode;
 import prs.midwit.linknote.project.domain.entitiy.Project;
 import prs.midwit.linknote.project.domain.repo.PjtRepository;
+import prs.midwit.linknote.project.dto.req.PjtModifyRequest;
 import prs.midwit.linknote.project.dto.res.PjtsResponse;
 
 import java.util.List;
 
+import static prs.midwit.linknote.auth.common.exception.type.ExceptionCode.*;
+
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PjtService {
+
+    private static final Logger log = LoggerFactory.getLogger(PjtService.class);
     private final PjtRepository pjtRepository;
 
 
@@ -34,4 +44,33 @@ public class PjtService {
         return pjtRepository.save(newProject).getPjtCode();
     }
 
+    public void modify(Long memberCode, long pjtCode, PjtModifyRequest request) {
+
+        Project findProject = pjtRepository.findById(pjtCode).orElseThrow(
+                () -> new NotFoundException(NOT_FOUND_PROJECT_CODE)
+        );
+        if (request.getPjtName() == null) {
+            throw new BadRequestException(BAD_REQUEST_PROJECT_CONTENTS);
+        }
+        if (findProject.getMemberCode() != memberCode) {
+            throw new BadRequestException(BAD_REQUEST_PROJECT_MEMBER);
+        }
+        findProject.modity(request);
+
+
+    }
+
+    public void delete(Long memberCode, long pjtCode) {
+        Project findProject = pjtRepository.findById(pjtCode).orElseThrow(
+                () -> new NotFoundException(NOT_FOUND_PROJECT_CODE)
+        );
+        log.info("내용 {}",findProject.isDeleted());
+        if (findProject.getMemberCode() != memberCode) {
+            throw new BadRequestException(BAD_REQUEST_PROJECT_MEMBER);
+        }
+        if (findProject.isDeleted()) {
+            throw new BadRequestException(BAD_REQUEST_PROJECT_ALREADY_DELETED);
+        }
+        pjtRepository.delete(findProject);
+    }
 }

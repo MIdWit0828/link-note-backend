@@ -14,3 +14,16 @@ Content-Type: application/json
 {
   "pjtName": "테스트용 이름2"
 }
+
+### 프로젝트 수정
+PUT http://localhost:8001/api/v1/pjts/1
+Access-Token: Bearer eyJkYXRlIjoxNzI2MDQwODE0MjAyLCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlclJvbGUiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6InVzZXIwMSIsImV4cCI6MTcyNjA0NDQxNH0.cqIEj5svRvrG7tNX4q6cgacSU6hyQ2TjE9fMhcM1miQfhqhtUEjBms1hISuVpRUH7HfZwUFQk92iAXJU2vtApQ
+Content-Type: application/json
+
+{
+  "pjtName": "수정된 이름"
+}
+
+### 프로젝트 삭제
+DELETE http://localhost:8001/api/v1/pjt/1
+Access-Token: Bearer eyJkYXRlIjoxNzI2MDQwODE0MjAyLCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlclJvbGUiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6InVzZXIwMSIsImV4cCI6MTcyNjA0NDQxNH0.cqIEj5svRvrG7tNX4q6cgacSU6hyQ2TjE9fMhcM1miQfhqhtUEjBms1hISuVpRUH7HfZwUFQk92iAXJU2vtApQ

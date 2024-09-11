@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import prs.midwit.linknote.member.service.MemberService;
 
 import prs.midwit.linknote.project.dto.req.PjtCreateRequest;
+import prs.midwit.linknote.project.dto.req.PjtModifyRequest;
 import prs.midwit.linknote.project.dto.res.PjtsResponse;
 import prs.midwit.linknote.project.service.PjtService;
 
@@ -18,6 +19,7 @@ import java.net.URI;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class PjtController {
+
     private final MemberService memberService;
     private final PjtService pjtService;
 
@@ -25,7 +27,7 @@ public class PjtController {
     @GetMapping("/pjts")
     public ResponseEntity<PjtsResponse> getProjects(
             @AuthenticationPrincipal UserDetails userDetails
-            ) {
+    ) {
         String userId = userDetails.getUsername();
         Long memberCode = memberService.getMemberCodeByName(userId);
 
@@ -35,16 +37,45 @@ public class PjtController {
     }
 
 
+    // 새로운 프로젝트 작성
     @PostMapping("/pjts")
     public ResponseEntity<Void> saveProject(
             @AuthenticationPrincipal UserDetails userDetails,
             @RequestBody PjtCreateRequest request
-            ) {
+    ) {
         String userId = userDetails.getUsername();
         Long memberCode = memberService.getMemberCodeByName(userId);
 
         final long pjtCode = pjtService.save(request.getPjtName(), memberCode);
 
         return ResponseEntity.created(URI.create("/api/v1/pjts/" + pjtCode)).build();
+    }
+
+    //기존의 프로젝트 수정
+    @PutMapping("/pjts/{pjtCode}")
+    public ResponseEntity<Void> modifyProject(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable long pjtCode,
+            @RequestBody PjtModifyRequest request
+    ) {
+        String userId = userDetails.getUsername();
+        Long memberCode = memberService.getMemberCodeByName(userId);
+
+        pjtService.modify(memberCode, pjtCode, request);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/pjt/{pjtCode}")
+    public ResponseEntity<Void> deleteProject(
+            @AuthenticationPrincipal UserDetails userDetails,
+            @PathVariable long pjtCode
+    ) {
+        String userId = userDetails.getUsername();
+        Long memberCode = memberService.getMemberCodeByName(userId);
+
+        pjtService.delete(memberCode, pjtCode);
+
+        return ResponseEntity.noContent().build();
     }
 }
