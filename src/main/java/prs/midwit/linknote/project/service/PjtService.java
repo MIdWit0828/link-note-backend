@@ -17,6 +17,7 @@ public class PjtService {
     private final PjtRepository pjtRepository;
 
 
+    // 자신이 작성한 프로젝트 목록 조회
     @Transactional(readOnly = true)
     public PjtsResponse getPjtsByMemberCode(Long memberCode) {
         List<Project> projects = pjtRepository.findByMemberCode(memberCode);
@@ -26,4 +27,11 @@ public class PjtService {
         }
         return PjtsResponse.from(projects);
     }
+
+    //새로운 프로젝트 작성
+    public long save(String pjtName, Long memberCode) {
+        Project newProject = Project.saveOf(pjtName, memberCode);
+        return pjtRepository.save(newProject).getPjtCode();
+    }
+
 }
