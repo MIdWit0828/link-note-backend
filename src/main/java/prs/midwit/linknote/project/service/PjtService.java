@@ -9,6 +9,8 @@ import prs.midwit.linknote.auth.common.exception.BadRequestException;
 import prs.midwit.linknote.auth.common.exception.NoContentsException;
 import prs.midwit.linknote.auth.common.exception.NotFoundException;
 import prs.midwit.linknote.auth.common.exception.type.ExceptionCode;
+import prs.midwit.linknote.page.dto.req.PageCreateReqest;
+import prs.midwit.linknote.page.service.PageService;
 import prs.midwit.linknote.project.domain.entitiy.Project;
 import prs.midwit.linknote.project.domain.repo.PjtRepository;
 import prs.midwit.linknote.project.dto.req.PjtModifyRequest;
@@ -25,6 +27,7 @@ public class PjtService {
 
     private static final Logger log = LoggerFactory.getLogger(PjtService.class);
     private final PjtRepository pjtRepository;
+    private final PageService pageService;
 
 
     // 자신이 작성한 프로젝트 목록 조회
@@ -41,6 +44,8 @@ public class PjtService {
     //새로운 프로젝트 작성
     public long save(String pjtName, Long memberCode) {
         Project newProject = Project.saveOf(pjtName, memberCode);
+        //프로젝트가 생성되면 새로운 패이지를 1개 같이 생성
+        pageService.save(new PageCreateReqest(newProject.getPjtCode(), "새문서"));
         return pjtRepository.save(newProject).getPjtCode();
     }
 

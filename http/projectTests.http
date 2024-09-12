@@ -8,11 +8,11 @@ Access-Token: Bearer eyJkYXRlIjoxNzI1OTUzNjgxMDMwLCJ0eXBlIjoiand0IiwiYWxnIjoiSFM
 
 ### 프로젝트 생성
 POST http://localhost:8001/api/v1/pjts
-Access-Token: Bearer eyJkYXRlIjoxNzI2MDQwODE0MjAyLCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlclJvbGUiOiJST0xFX1VTRVIiLCJtZW1iZXJJZCI6InVzZXIwMSIsImV4cCI6MTcyNjA0NDQxNH0.cqIEj5svRvrG7tNX4q6cgacSU6hyQ2TjE9fMhcM1miQfhqhtUEjBms1hISuVpRUH7HfZwUFQk92iAXJU2vtApQ
+Access-Token: Bearer eyJkYXRlIjoxNzI2MTE4MDMxNTc2LCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlcklkIjoidXNlcjAxIiwibWVtYmVyUm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyNjEyMTYzMX0.MQmNyEFmmt6FVqWxXBSIBj5rt1csZFwv9-4Go5v8AXwW5BZ6jt8AQpPcMA9-T1cLhKG5HVUoTr33sL2GC4R2hA
 Content-Type: application/json
 
 {
-  "pjtName": "테스트용 이름2"
+  "pjtName": "테스트용 이름3"
 }
 
 ### 프로젝트 수정
