@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import prs.midwit.linknote.member.service.MemberService;
 import prs.midwit.linknote.page.dto.req.PageCreateReqest;
+import prs.midwit.linknote.page.dto.res.PageResponse;
 import prs.midwit.linknote.page.service.PageService;
 
 import java.net.URI;
@@ -53,5 +54,15 @@ public class PageController {
         pageService.delete(pageCode);
 
         return ResponseEntity.noContent().build();
+    }
+
+    //특정 페이지 조회
+    @GetMapping("/pages/{pageCode}")
+    public ResponseEntity<PageResponse> findPage(
+            @PathVariable long pageCode
+    ) {
+        PageResponse response = pageService.findByPageCode(pageCode);
+
+        return ResponseEntity.ok(response);
     }
 }

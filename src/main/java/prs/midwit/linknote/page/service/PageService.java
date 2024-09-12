@@ -8,6 +8,7 @@ import prs.midwit.linknote.auth.common.exception.type.ExceptionCode;
 import prs.midwit.linknote.page.domain.entity.Page;
 import prs.midwit.linknote.page.domain.repo.PageRepository;
 import prs.midwit.linknote.page.dto.req.PageCreateReqest;
+import prs.midwit.linknote.page.dto.res.PageResponse;
 import prs.midwit.linknote.page.presentation.PageModifyRequest;
 import prs.midwit.linknote.project.domain.entitiy.Project;
 import prs.midwit.linknote.project.domain.repo.PjtRepository;
@@ -44,4 +45,12 @@ public class PageService {
         );
         pageRepository.delete(findPage);
     }
+
+    public PageResponse findByPageCode(long pageCode) {
+        Page findPage = pageRepository.findByPageCodeAndIsDeletedFalse(pageCode).orElseThrow(
+                () -> new NotFoundException(ExceptionCode.NOT_FOUND_PAGE_CODE)
+        );
+        return PageResponse.from(findPage);
+    }
+
 }
