@@ -9,10 +9,13 @@ import prs.midwit.linknote.page.domain.entity.Page;
 import prs.midwit.linknote.page.domain.repo.PageRepository;
 import prs.midwit.linknote.page.dto.req.PageCreateReqest;
 import prs.midwit.linknote.page.dto.res.PageResponse;
+import prs.midwit.linknote.page.dto.res.PagesResponse;
 import prs.midwit.linknote.page.presentation.PageModifyRequest;
 import prs.midwit.linknote.project.domain.entitiy.Project;
 import prs.midwit.linknote.project.domain.repo.PjtRepository;
 import prs.midwit.linknote.project.service.PjtService;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -51,6 +54,15 @@ public class PageService {
                 () -> new NotFoundException(ExceptionCode.NOT_FOUND_PAGE_CODE)
         );
         return PageResponse.from(findPage);
+    }
+
+    public PagesResponse findPagesByPjtCode(long pjtCode) {
+
+        List<Page> findPages = pageRepository.findAllByPjtCodeAndIsDeleted(pjtCode,false);
+        if (findPages.isEmpty()) {
+            throw new NotFoundException(ExceptionCode.NOT_FOUND_PAGE_CODE);
+        }
+        return PagesResponse.of(findPages);
     }
 
 }

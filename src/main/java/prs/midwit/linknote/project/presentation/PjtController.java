@@ -1,5 +1,6 @@
 package prs.midwit.linknote.project.presentation;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import prs.midwit.linknote.member.service.MemberService;
 
+import prs.midwit.linknote.page.dto.res.PagesResponse;
+import prs.midwit.linknote.page.service.PageService;
 import prs.midwit.linknote.project.dto.req.PjtCreateRequest;
 import prs.midwit.linknote.project.dto.req.PjtModifyRequest;
 import prs.midwit.linknote.project.dto.res.PjtsResponse;
@@ -22,6 +25,7 @@ public class PjtController {
 
     private final MemberService memberService;
     private final PjtService pjtService;
+    private final PageService pageService;
 
     //자신이 작성한 프로젝트를 조회
     @GetMapping("/pjts")
@@ -66,7 +70,8 @@ public class PjtController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/pjt/{pjtCode}")
+    //프로젝트 삭제
+    @DeleteMapping("/pjts/{pjtCode}")
     public ResponseEntity<Void> deleteProject(
             @AuthenticationPrincipal UserDetails userDetails,
             @PathVariable long pjtCode
@@ -77,5 +82,14 @@ public class PjtController {
         pjtService.delete(memberCode, pjtCode);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/pjts/pages/{pjtCode}")
+    public ResponseEntity<PagesResponse> findPagesByPjtCode(
+            @PathVariable long pjtCode
+    ) {
+        PagesResponse res = pageService.findPagesByPjtCode(pjtCode);
+
+        return ResponseEntity.ok(res);
     }
 }
