@@ -7,6 +7,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import prs.midwit.linknote.page.dto.req.PageCreateReqest;
 
 import java.time.LocalDateTime;
 
@@ -30,4 +31,16 @@ public class Page {
     private LocalDateTime pageDeleteDt;
     private Long pjtCode;
     private Long categoryCode;
+
+    public Page(String pageTitle, long pjtCode) {
+        this.pageTitle = pageTitle;
+        this.pjtCode = pjtCode;
+    }
+
+    public static Page from(PageCreateReqest reqest) {
+        return new Page(
+                reqest.getPageTitle(),
+                reqest.getPjtCode()
+        );
+    }
 }
