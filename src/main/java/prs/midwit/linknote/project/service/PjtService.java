@@ -44,9 +44,11 @@ public class PjtService {
     //새로운 프로젝트 작성
     public long save(String pjtName, Long memberCode) {
         Project newProject = Project.saveOf(pjtName, memberCode);
+        newProject = pjtRepository.save(newProject);
         //프로젝트가 생성되면 새로운 패이지를 1개 같이 생성
         pageService.save(new PageCreateReqest(newProject.getPjtCode(), "새문서"));
-        return pjtRepository.save(newProject).getPjtCode();
+
+        return newProject.getPjtCode();
     }
 
     public void modify(Long memberCode, long pjtCode, PjtModifyRequest request) {

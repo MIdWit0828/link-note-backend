@@ -8,8 +8,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import prs.midwit.linknote.page.dto.req.PageCreateReqest;
+import prs.midwit.linknote.page.presentation.PageModifyRequest;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -42,5 +44,14 @@ public class Page {
                 reqest.getPageTitle(),
                 reqest.getPjtCode()
         );
+    }
+
+    public void modify(PageModifyRequest request) {
+        if (request.getPageTitle() != "") {
+            this.pageTitle = request.getPageTitle();
+        }
+        if (request.getPageText() != "") {
+            this.pageText = request.getPageText();
+        }
     }
 }
