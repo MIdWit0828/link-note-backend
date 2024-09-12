@@ -40,7 +40,17 @@ public class PageController {
             @PathVariable long pageCode,
             @RequestBody PageModifyRequest request
     ) {
-        pageService.modify(pageCode,request);
+        pageService.modify(pageCode, request);
+
+        return ResponseEntity.ok().build();
+    }
+
+    //패이지 삭제
+    @DeleteMapping("/pages/{pageCode}")
+    public ResponseEntity<Void> deletePage(
+            @PathVariable long pageCode
+    ) {
+        pageService.delete(pageCode);
 
         return ResponseEntity.noContent().build();
     }

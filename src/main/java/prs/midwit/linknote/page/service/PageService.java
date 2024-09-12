@@ -37,4 +37,11 @@ public class PageService {
         findPage.modify(request);
 
     }
+
+    public void delete(long pageCode) {
+        Page findPage = pageRepository.findById(pageCode).orElseThrow(
+                () -> new NotFoundException(ExceptionCode.NOT_FOUND_PAGE_CODE)
+        );
+        pageRepository.delete(findPage);
+    }
 }

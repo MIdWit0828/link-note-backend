@@ -31,3 +31,7 @@ Content-Type: application/json
   "pageText": "",
   "pageTitle": "이름만 수정하기"
 }
+
+### 페이지 삭제
+DELETE http://localhost:8001/api/v1/pages/1
+Access-Token: Bearer eyJkYXRlIjoxNzI2MTE4MDMxNTc2LCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlcklkIjoidXNlcjAxIiwibWVtYmVyUm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyNjEyMTYzMX0.MQmNyEFmmt6FVqWxXBSIBj5rt1csZFwv9-4Go5v8AXwW5BZ6jt8AQpPcMA9-T1cLhKG5HVUoTr33sL2GC4R2hA
