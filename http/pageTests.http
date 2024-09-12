@@ -1,0 +1,13 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+### 새로운 패이지 생성
+POST http://localhost:8001/api/v1/pages
+Access-Token: Bearer eyJkYXRlIjoxNzI2MTE4MDMxNTc2LCJ0eXBlIjoiand0IiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJBY2Nlc3NUb2tlbiIsIm1lbWJlcklkIjoidXNlcjAxIiwibWVtYmVyUm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTcyNjEyMTYzMX0.MQmNyEFmmt6FVqWxXBSIBj5rt1csZFwv9-4Go5v8AXwW5BZ6jt8AQpPcMA9-T1cLhKG5HVUoTr33sL2GC4R2hA
+Content-Type: application/json
+
+{
+  "pjtCode": 2,
+  "pageTitle": "새로운 패이지 생성됨"
+}

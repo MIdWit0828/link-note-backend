@@ -2,6 +2,8 @@ package prs.midwit.linknote.page.presentation;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,6 +21,8 @@ import java.net.URI;
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
 public class PageController {
+
+    private static final Logger log = LoggerFactory.getLogger(PageController.class);
     private  final PageService pageService;
     private final MemberService memberService;
 
@@ -27,6 +31,7 @@ public class PageController {
     public ResponseEntity<Void> savePage(
             @RequestBody @Valid PageCreateReqest reqest
     ) {
+        log.info("+++++++++++++++++pjtCode{}+++++++++++++",reqest.getPjtCode());
         final long pageCode = pageService.save(reqest);
 
         return ResponseEntity.created(URI.create("/api/v1/pages/" + pageCode)).build();

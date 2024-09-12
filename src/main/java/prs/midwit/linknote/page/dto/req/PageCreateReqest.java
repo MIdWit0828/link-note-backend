@@ -1,6 +1,7 @@
 package prs.midwit.linknote.page.dto.req;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,8 @@ import org.springframework.stereotype.Service;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PageCreateReqest {
-    @NotBlank
-    private long pjtCode;
+    @NotNull
+    private Long pjtCode;
     @NotBlank
     private String pageTitle;
 }
